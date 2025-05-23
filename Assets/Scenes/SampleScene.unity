@@ -180,7 +180,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 754545519}
   - component: {fileID: 754545521}
   - component: {fileID: 754545520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 1215314672}
   - component: {fileID: 1215314671}
   - component: {fileID: 1215314670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2140,6 +2140,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3ce1e1a5-c439-48ad-bad6-71d5b35806fc
     m_ActionName: 'Player/Third[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1215314674}
+        m_TargetAssemblyTypeName: Creatures.Player.InputController, GameAssembly
+        m_MethodName: OnPlayerSecondaryAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e467ea8a-1726-478b-bc20-821a7a5ebd4c
+    m_ActionName: 'Player/Secondary[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2251,10 +2267,10 @@ MonoBehaviour:
   CameraSide: 1
   CameraDistance: 4
   AvoidObstacles:
-    Enabled: 0
+    Enabled: 1
     CollisionFilter:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 9
     IgnoreTag: 
     CameraRadius: 0.2
     DampingIntoCollision: 0
@@ -2283,7 +2299,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2505,7 +2521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1837430976}
   - component: {fileID: 1837430977}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FollowMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2539,6 +2555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef4826f42124b2ab70552b986c66a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraAim: {fileID: 1375006700}
   _verticalClamp: {x: -70, y: 70}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

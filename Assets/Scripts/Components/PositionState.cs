@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Components {
-    public class State {
+    public class PositionState {
         private LayerMask _groundMask;
         
         private RaycastHit _hit;
@@ -10,7 +10,7 @@ namespace Components {
         public Vector3 SlopeNormal { get; private set; }
         public bool OnSlope { get; private set; }
 
-        public State(LayerMask mask) {
+        public PositionState(LayerMask mask) {
             _groundMask = mask;
         }
         

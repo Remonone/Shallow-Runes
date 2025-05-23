@@ -32,14 +32,14 @@ namespace Creatures.Player {
         }
 
         public void OnPlayerMainAction(InputAction.CallbackContext context) {
-            if (!context.started) return;
-            PlayerMainActionEvent e = new PlayerMainActionEvent();
+            if (context.started) return;
+            PlayerMainActionEvent e = new PlayerMainActionEvent(context.performed, context.canceled);
             EventBus<PlayerMainActionEvent>.Raise(e);
         }
 
         public void OnPlayerSecondaryAction(InputAction.CallbackContext context) {
-            if (!context.started) return;
-            PlayerSecondaryActionEvent e = new PlayerSecondaryActionEvent();
+            if (context.started) return;
+            PlayerSecondaryActionEvent e = new PlayerSecondaryActionEvent(context.performed, context.canceled);
             EventBus<PlayerSecondaryActionEvent>.Raise(e);
         }
 

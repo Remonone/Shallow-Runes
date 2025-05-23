@@ -2,10 +2,25 @@
 namespace Events.Types {
     public class PlayerMainActionEvent : IEvent, ICancellable {
         public bool Cancelled { get; } = false;
+        
+        public bool Pressed { get; }
+        public bool Released { get; }
+        
+        public PlayerMainActionEvent(bool pressed, bool released) {
+            Pressed = pressed;
+            Released = released;
+        }
     }
 
     public class PlayerSecondaryActionEvent : IEvent, ICancellable {
         public bool Cancelled { get; } = false;
+        public bool Pressed { get; }
+        public bool Released { get; }
+        
+        public PlayerSecondaryActionEvent(bool pressed, bool released) {
+            Pressed = pressed;
+            Released = released;
+        }
     }
 
     public class PlayerInteractEvent : IEvent { }
@@ -20,5 +35,13 @@ namespace Events.Types {
             Cancelled = false;
         }
         
+    }
+
+    public class SetCameraViewEvent : IEvent {
+        public float FieldOfView { get; }
+
+        public SetCameraViewEvent(float fov) {
+            FieldOfView = fov;
+        }
     }
 }

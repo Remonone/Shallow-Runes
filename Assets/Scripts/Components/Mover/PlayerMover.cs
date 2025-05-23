@@ -22,7 +22,7 @@ namespace Components.Mover {
 
         private int Level => _reference.LevelComponent.Level;
 
-        private State _state;
+        private PositionState _positionState;
 
         private Listener<PlayerMoveEvent> _onPlayerMove;
         private Listener<PlayerJumpEvent> _onPlayerJump;
@@ -40,12 +40,12 @@ namespace Components.Mover {
             _onPlayerRun = new Listener<PlayerRunningEvent>(OnPlayerRun);
             EventBus<PlayerRunningEvent>.Register(_onPlayerRun);
 
-            _state = new State(_groundMask);
+            _positionState = new PositionState(_groundMask);
             _playerCamera = Camera.main;
         }
 
         private void OnPlayerRun(PlayerRunningEvent e) {
-            _state.Running = e.IsRunning;
+            _positionState.Running = e.IsRunning;
         }
 
         private void OnDestroy() {
@@ -61,12 +61,12 @@ namespace Components.Mover {
             _rigidbody.isKinematic = false;
             _reference = GetComponent<Player>();
             _rigidbody = GetComponent<Rigidbody>();
-            _state.UpdatePlayerHeight(transform.position);
+            _positionState.UpdatePlayerHeight(transform.position);
         }
 
         private void FixedUpdate() {
-            _state.UpdateState(transform.position);
-            var onSlope = _state.OnSlope;
+            _positionState.UpdateState(transform.position);
+            var onSlope = _positionState.OnSlope;
             var direction = RotateMovingDirection();
             var speed = _maxSpeed * DataConstants.SPEED_SCALE;
             if (onSlope) {
@@ -95,7 +95,7 @@ namespace Components.Mover {
         #region EventHandlers
 
         private void OnPlayerJump() {
-            if (!_state.Grounded && _jumpCooldown.IsActive) return;
+            if (!_positionState.Grounded && _jumpCooldown.IsActive) return;
             _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(Vector3.up * _reference.Traits.JumpForce(Level), ForceMode.Impulse);
         }
@@ -109,13 +109,13 @@ namespace Components.Mover {
         #region Local Functions
 
         private void UpdateDrag() {
-            _rigidbody.linearDamping = _state.Grounded || _state.OnSlope 
+            _rigidbody.linearDamping = _positionState.Grounded || _positionState.OnSlope 
                 ? _groundDrag : 0F;
         }
         
         private void UpdateMaxSpeed() {
             var speed = _reference.Traits.Speed(Level);
-            if (_state.Running) {
+            if (_positionState.Running) {
                 speed = _reference.Traits.RunningSpeed(Level);
             }
             _maxSpeed = speed;
@@ -123,7 +123,7 @@ namespace Components.Mover {
         
         private void ClampSpeed() {
             var speed = _maxSpeed * DataConstants.SPEED_SCALE;
-            if (_state.OnSlope) {
+            if (_positionState.OnSlope) {
                 if (_rigidbody.linearVelocity.magnitude > speed) {
                     _rigidbody.linearVelocity = _rigidbody.linearVelocity.normalized * speed;
                 }
@@ -146,7 +146,7 @@ namespace Components.Mover {
         }
 
         private void ProcessMovementOnGround(Vector3 direction, float speed) {
-            if (_state.Grounded) {
+            if (_positionState.Grounded) {
                 _rigidbody.AddForce(direction * speed, ForceMode.Force);
             }
             else {
@@ -160,7 +160,7 @@ namespace Components.Mover {
         }
         
         private Vector3 GetSlopeMoveDirection(Vector3 direction) {
-            return Vector3.ProjectOnPlane(direction, _state.SlopeNormal).normalized;
+            return Vector3.ProjectOnPlane(direction, _positionState.SlopeNormal).normalized;
         }
 
         #endregion

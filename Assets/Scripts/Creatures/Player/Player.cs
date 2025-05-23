@@ -14,8 +14,6 @@ namespace Creatures.Player {
         
         protected override void Awake() {
             base.Awake();
-
-            _inventory = GetComponent<InventoryStash>();
             
             _mainActionListener = new Listener<PlayerMainActionEvent>(OnMainAction);
             EventBus<PlayerMainActionEvent>.Register(_mainActionListener);
@@ -36,12 +34,14 @@ namespace Creatures.Player {
         
         private void OnMainAction(PlayerMainActionEvent e) {
             if (e.Cancelled) return;
-            _inventory.Weapon.MainAction();
+            _inventory.Weapon.Shoot(e);
         }
         
         private void OnSecondaryAction(PlayerSecondaryActionEvent e) {
             if (e.Cancelled) return;
-            _inventory.Weapon.SecondaryAction();
+            var fov = e.Pressed ? 40F : 60F;
+            SetCameraViewEvent cameraViewEvent = new SetCameraViewEvent(fov);
+            EventBus<SetCameraViewEvent>.Raise(cameraViewEvent);
         }
 
         private void OnAbilityAction(PlayerAbilityActionEvent e) {
