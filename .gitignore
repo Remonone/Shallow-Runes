@@ -11,6 +11,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/CodeCoverage/
+/artifacts/
+
 *.log
 
 # MemoryCaptures can get excessive in size.
