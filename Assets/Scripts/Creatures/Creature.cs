@@ -2,13 +2,15 @@
 using Traits;
 using UnityEngine;
 
-namespace Creatures.Player {
+namespace Creatures {
     public abstract class Creature : MonoBehaviour {
         [SerializeField] private LevelComponent _levelComponent;
         [SerializeField] private BaseTraits _baseTraits;
 
         public TraitsContainer Traits { get; private set; }
-        public LevelComponent LevelComponent => _levelComponent;
+        
+        public int Level => _levelComponent.Level;
+        
         protected virtual void Awake() {
             Traits = new TraitsContainer(new TraitsMediator(), _baseTraits);
         }

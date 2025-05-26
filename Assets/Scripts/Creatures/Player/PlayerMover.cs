@@ -1,11 +1,11 @@
-﻿using Constants;
-using Creatures.Player;
+﻿using Components;
+using Constants;
 using Events;
 using Events.Types;
 using UnityEngine;
 using Utils;
 
-namespace Components.Mover {
+namespace Creatures.Player {
     public class PlayerMover : MonoBehaviour {
         [SerializeField] private LayerMask _groundMask;
         [SerializeField] private Cooldown _jumpCooldown;
@@ -20,7 +20,7 @@ namespace Components.Mover {
         private float _maxSpeed;
         private Player _reference;
 
-        private int Level => _reference.LevelComponent.Level;
+        private int Level => _reference.Level;
 
         private PositionState _positionState;
 
@@ -65,6 +65,7 @@ namespace Components.Mover {
         }
 
         private void FixedUpdate() {
+            _rigidbody.angularVelocity = Vector3.zero;
             _positionState.UpdateState(transform.position);
             var onSlope = _positionState.OnSlope;
             var direction = RotateMovingDirection();

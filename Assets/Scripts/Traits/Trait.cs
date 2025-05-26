@@ -2,10 +2,13 @@
     public enum Trait {
         HEALTH,
         MOVE_SPEED,
-        BASE_ATTACK,
+        ATTACK_DAMAGE,
+        ATTACK_SPEED,
+        ATTACK_RANGE,
+        ATTACK_SHOT_SPEED,
         BASE_REGEN,
         RUNNING_SPEED,
-        HEALTH_EFFICIENCY,
+        HEAL_EFFICIENCY,
         JUMP_FORCE,
         CROUCHING_SPEED,
     }

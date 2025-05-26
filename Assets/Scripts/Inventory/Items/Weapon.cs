@@ -1,12 +1,16 @@
-﻿using Events;
-using Events.Types;
-using UnityEngine;
+﻿using Projectiles;
 
 namespace Inventory.Items {
     public class Weapon {
+        private readonly ProjectileData _data;
 
-        public void Shoot(PlayerMainActionEvent e) {
-            Debug.Log("Performing main action...");
+        public Weapon(ProjectileData data) {
+            _data = data;
+        }
+        
+        public void Shoot(IProjectileStrategy strategy) {
+            Projectile projectile = ProjectilePool.Instance.Spawn(_data);
+            strategy.SetupProjectile(projectile);
         }
     }
 }

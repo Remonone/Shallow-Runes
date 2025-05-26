@@ -14,44 +14,27 @@ namespace Traits {
             _traits = traits;
         }
 
-        public float Health(int level) {
-            var baseHealth = _traits.GetValueByTrait<MultiplicationScale>(Trait.HEALTH, level);
-            Query query = new Query(Trait.HEALTH, baseHealth);
-            Mediator.PerformQuery(this, query);
-            return query.Value;
-        }
+        public float Health(int level) => GetEndValue<MultiplicationScale>(Trait.HEALTH, level);
 
-        public float HealthEfficiency(int level) {
-            var baseEfficiency = _traits.GetValueByTrait<PlainScale>(Trait.HEALTH_EFFICIENCY, level);
-            Query query = new Query(Trait.HEALTH_EFFICIENCY, baseEfficiency);
-            Mediator.PerformQuery(this, query);
-            return query.Value;
-        }
+        public float HealEfficiency(int level) => GetEndValue<PlainScale>(Trait.HEAL_EFFICIENCY, level);
 
-        public float Speed(int level) {
-            var baseEfficiency = _traits.GetValueByTrait<PlainScale>(Trait.MOVE_SPEED, level);
-            Query query = new Query(Trait.MOVE_SPEED, baseEfficiency);
-            Mediator.PerformQuery(this, query);
-            return query.Value;
-        }
+        public float Speed(int level) => GetEndValue<PlainScale>(Trait.MOVE_SPEED, level);
 
-        public float JumpForce(int level) {
-            var baseEfficiency = _traits.GetValueByTrait<PlainScale>(Trait.JUMP_FORCE, level);
-            Query query = new Query(Trait.JUMP_FORCE, baseEfficiency);
-            Mediator.PerformQuery(this, query);
-            return query.Value;
-        }
+        public float JumpForce(int level) => GetEndValue<PlainScale>(Trait.JUMP_FORCE, level);
 
-        public float RunningSpeed(int level) {
-            var baseEfficiency = _traits.GetValueByTrait<PlainScale>(Trait.RUNNING_SPEED, level);
-            Query query = new Query(Trait.RUNNING_SPEED, baseEfficiency);
-            Mediator.PerformQuery(this, query);
-            return query.Value;
-        }
+        public float RunningSpeed(int level) => GetEndValue<PlainScale>(Trait.RUNNING_SPEED, level);
 
-        public float CrouchingSpeed(int level) {
-            var baseEfficiency = _traits.GetValueByTrait<PlainScale>(Trait.CROUCHING_SPEED, level);
-            Query query = new Query(Trait.CROUCHING_SPEED, baseEfficiency);
+        public float AttackDamage(int level) => GetEndValue<PlainScale>(Trait.ATTACK_DAMAGE, level);
+
+        public float AttackShotSpeed(int level) => GetEndValue<PlainScale>(Trait.ATTACK_SHOT_SPEED, level);
+
+        public float AttackSpeed(int level) => GetEndValue<MultiplicationScale>(Trait.ATTACK_SPEED, level);
+
+        public float AttackRange(int level) => GetEndValue<PlainScale>(Trait.ATTACK_RANGE, level);
+
+        private float GetEndValue<T>(Trait trait, int level) where T : Scale, new() {
+            var baseEfficiency = _traits.GetValueByTrait<T>(trait, level);
+            Query query = new Query(trait, baseEfficiency);
             Mediator.PerformQuery(this, query);
             return query.Value;
         }

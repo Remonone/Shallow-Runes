@@ -1,12 +1,28 @@
-﻿using Events;
+﻿using Components;
+using Events;
 using Events.Types;
 using Inventory;
+using Inventory.Items;
+using Projectiles;
+using Projectiles.Strategy;
 using UnityEngine;
 
 namespace Creatures.Player {
     public class Player : Creature {
 
         [SerializeField] private InventoryStash _inventory;
+        [SerializeField] private ProjectileData _projectileData;
+        [SerializeField] private CameraRotationComponent _rotation;
+        [SerializeField] private GameObject _shootPosition;
+        
+        private Weapon _weapon;
+        private PlayerProjectileStrategy _strategy;
+        private Vector3 _direction;
+
+        private bool _isShooting;
+        
+        public Vector3 Direction => _rotation.LookDirection;
+        public Vector3 ShootPosition => _shootPosition.transform.position;
 
         private Listener<PlayerMainActionEvent> _mainActionListener;
         private Listener<PlayerSecondaryActionEvent> _secondaryActionListener;
@@ -21,6 +37,9 @@ namespace Creatures.Player {
             EventBus<PlayerSecondaryActionEvent>.Register(_secondaryActionListener);
             _abilityActionListener = new Listener<PlayerAbilityActionEvent>(OnAbilityAction);
             EventBus<PlayerAbilityActionEvent>.Register(_abilityActionListener);
+
+            _strategy = new PlayerProjectileStrategy(this);
+            _weapon = new Weapon(_projectileData);
         }
 
         private void OnDestroy() {
@@ -34,7 +53,10 @@ namespace Creatures.Player {
         
         private void OnMainAction(PlayerMainActionEvent e) {
             if (e.Cancelled) return;
-            _inventory.Weapon.Shoot(e);
+            if (e.Released && !_isShooting) return;
+            
+            _isShooting = !e.Cancelled;
+            _weapon.Shoot(_strategy);
         }
         
         private void OnSecondaryAction(PlayerSecondaryActionEvent e) {

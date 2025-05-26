@@ -16,24 +16,27 @@ MonoBehaviour:
   - Trait: 0
     Value: 90.9
     LevelScale: 1.1
-  - Trait: 5
+  - Trait: 8
     Value: 0.3
     LevelScale: 0.05
+  - Trait: 9
+    Value: 5
+    LevelScale: 0
   - Trait: 1
+    Value: 3
+    LevelScale: 0
+  - Trait: 7
+    Value: 6
+    LevelScale: 0
+  - Trait: 5
+    Value: 60
+    LevelScale: 0
+  - Trait: 6
+    Value: 0.01
+    LevelScale: 0.005
+  - Trait: 3
     Value: 2
     LevelScale: 0
   - Trait: 4
-    Value: 4
+    Value: 40
     LevelScale: 0
-  - Trait: 6
-    Value: 4
-    LevelScale: 0
-  - Trait: 7
-    Value: 1
-    LevelScale: 0
-  - Trait: 2
-    Value: 5
-    LevelScale: 1
-  - Trait: 2
-    Value: 5
-    LevelScale: 1

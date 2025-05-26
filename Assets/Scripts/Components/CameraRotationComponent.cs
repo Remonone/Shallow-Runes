@@ -11,6 +11,8 @@ namespace Components {
         private Listener<PlayerLookEvent> _lookEvent;
         private Listener<SetCameraViewEvent> _cameraViewEvent;
         private float _currentFieldOfView  = 60F;
+        
+        public Vector3 LookDirection => transform.forward;
 
         private void Start() {
             _lookEvent = new Listener<PlayerLookEvent>(OnLook);
